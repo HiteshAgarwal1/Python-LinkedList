@@ -8,7 +8,7 @@ def readme():
 
 setup(
     name = "pylinkedlist",
-    version = "0.0.2",
+    version = "0.1.0",
     description = "A Python package to work with LinkedList.",
     long_description = readme(),
     long_description_content_type = "text/markdown",
