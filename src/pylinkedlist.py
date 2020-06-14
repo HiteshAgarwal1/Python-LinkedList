@@ -11,64 +11,60 @@ class LinkedList:
         self.head = None
         self.tail = None
 
-    def append(self,element):
-        """Add the new element at the end of linkedlist
-        
-        Time Complexity: O(1)
-        Auxiliary Space Complexity: O(1)
-
-        param element: new element to append in linkedlist at the end
-        type element: any  
-        """
-        new_node = Node(element)
+    def __repr__(self):
         if self.head is None:
-            self.head = new_node
-            self.tail = new_node
-            return
-        self.tail.next = new_node
-        self.tail = self.tail.next
+            return ''
+        curr_node = self.head
+        element = ''
+        while curr_node:
+            element += f'{curr_node.data} -> '
+            curr_node = curr_node.next
+        element += 'None'
+        return element
 
-    def append_from_list(self, list_element):
-        """Iteratively calls append() function and add the new elements
-        at the end of linkedlist from a list
-
-        Time Complexity: O(n)
-        Auxiliary Space Complexity: O(1)
-
-        param list_element: list of any types to append in linkedlist
-        """
-        for x in list_element:
-            self.append(x)
-
-    def addfront(self,element):
-        """Add the new element at the front of linkedlist
+    def add(self,element):
+        """Add the new element[s] at the end of linkedlist
         
-        Time Complexity: O(1)
+        Time Complexity: O[elements to add]
         Auxiliary Space Complexity: O(1)
 
-        param element: new element to append in linkedlist at the front
+        param element: new element to add in linkedlist at the end
         type element: any  
         """
-        if not self.head:
-            self.head = Node(element)
-            self.Tail = self.head
+        if type(element) is list:
+            for e in element:
+                self.add(e)
         else:
             new_node = Node(element)
-            new_node.next = self.head
-            self.head = new_node
+            if self.head is None:
+                self.head = new_node
+                self.tail = new_node
+                return
+            self.tail.next = new_node
+            self.tail = self.tail.next
 
-    def printList(self):
-        if self.head is None:
-            print(' ')
-            return
-        curr_node = self.head
-        while curr_node:
-            print(curr_node.data, end = " ")
-            curr_node = curr_node.next
-        print(' ')
+    def addleft(self,element):
+        """Add the new element[s] at the front of linkedlist
+        
+        Time Complexity: O(elements to add)
+        Auxiliary Space Complexity: O(1)
 
+        param element: new element to add in linkedlist at the front
+        type element: any  
+        """
+        if type(element) is list:
+            for e in element:
+                self.addleft(e)
+        else:
+            if not self.head:
+                self.head = Node(element)
+                self.tail = self.head
+            else:
+                new_node = Node(element)
+                new_node.next = self.head
+                self.head = new_node
     
-    def getNode(self, value): 
+    def getnode(self, value): 
         """Takes data of a node and returns first occurence of the node 
         reference if the data present at any of the node 
         otherwise returns None
@@ -105,7 +101,7 @@ class LinkedList:
             curr=curr.next
         return count
 
-    def getMid(self):
+    def getmid(self):
         """Return the mid Node of LinkedList
 
         Time Complexity: O(n/2)
@@ -119,7 +115,7 @@ class LinkedList:
             second = second.next.next
         return first
 
-    def deleteNode(self, node):
+    def delete_from_mid(self, node):
         """Take a Node reference and delete it from the LinkedList
 
         Time Complexity: O(1)
@@ -134,26 +130,8 @@ class LinkedList:
         else:
             node = None
 
-    def removeDuplicates(self, isSorted=False):
-        if(isSorted):
-                while self.head and self.head.next:
-                    if self.head.data == self.head.next.data:
-                        head.next = self.head.next.next
-                    else:
-                        head = head.next
-        else:
-            curr = self.head
-            value = [None]*self.getcount()
-            value[curr.data]=1
-            while curr and curr.next:
-                if value[curr.next.data]:
-                    curr.next = curr.next.next
-                    value[curr.data]=1
-                else:
-                    curr = curr.next
-                    value[curr.data]=1
 
-    def insertAtMid(self,element):
+    def insert_at_mid(self,element):
         """Takes a element and add it in the middle of LinkedList
 
         Time Complexity: O(n/2)
